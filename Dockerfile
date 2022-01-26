@@ -54,14 +54,16 @@ RUN cd ${WORK_DIR}/nginx-quic \
     && make install
 
 
-FROM nginx:latest
+FROM debian:stable-slim
 
-RUN bash -c 'mkdir -p /var/{cache/nginx,www/html} /etc/nginx/certs'
-
-COPY --from=builder /usr/sbin/nginx /usr/sbin/nginx
-COPY nginx.conf /etc/nginx
-
+RUN apt update && apt install -y openssl
+RUN bash -c 'mkdir -p /var/{cache/nginx,www/html} /etc/nginx/certs /etc/nginx'
 RUN cd /etc/nginx/certs \
     && openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj /CN=localhost -keyout server.key -out server.crt
+
+COPY --from=builder /usr/sbin/nginx /usr/sbin/nginx
+COPY --from=builder /etc/nginx /etc/nginx
+COPY --from=builder /var/log/nginx /var/log/nginx
+COPY nginx.conf /etc/nginx
 
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
