@@ -2,7 +2,7 @@
 
 public image
 ```
-docker run -p 8443:8443 -p 8443:8443/udp -v <path to>/certs:/etc/nginx/certs --rm -it masanetes/nginx-http3:latest
+docker run -p 8443:8443 -p 8443:8443/udp -v <path to>/certs:/etc/nginx/certs --rm -it ghcr.io/masanetes/nginx-http3:latest
 ```
 
 self build
