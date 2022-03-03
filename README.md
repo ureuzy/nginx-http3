@@ -1,5 +1,11 @@
 # docker nginx-http3
 
+Note: 
+
+http3 quick uses udp to communicate, so open the udp port. Also, if you do not provide a certificate, a self-certificate will be used, but this may not result in http3 communication with some browsers, etc.
+
+
+
 public image
 ```
 docker run -p 8443:8443 -p 8443:8443/udp -v <path to>/certs:/etc/nginx/certs --rm -it masanetes/nginx-http3:latest
