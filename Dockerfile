@@ -36,6 +36,7 @@ RUN cd ${WORK_DIR}/nginx-quic \
     && ./auto/configure \
     --with-debug \
     --with-http_v3_module \
+    --with-http_v2_module \
     --with-cc-opt="-I../boringssl/include" \
     --with-ld-opt="-L../boringssl/build/ssl -L../boringssl/build/crypto" \
     --prefix=/etc/nginx \
